@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+body {
+  @apply bg-paper font-sans text-ink antialiased;
+  background-image:
+    radial-gradient(rgba(120, 98, 50, .06) 1px, transparent 1px);
+  background-size: 22px 22px;
+  overflow-x: hidden;
+}
+::selection { background: #BFD3B3; }
+
+:focus-visible { outline: 3px solid #3F6F55; outline-offset: 2px; border-radius: 6px; }
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-[15px] font-semibold transition duration-200 disabled:cursor-not-allowed disabled:opacity-55; }
+  .btn-primary { @apply btn bg-leaf-700 text-paper shadow-soft hover:bg-leaf-800 active:translate-y-px; }
+  .btn-quiet { @apply btn border border-paper-edge bg-paper/80 text-ink hover:bg-paper-deep; }
+  .field { @apply w-full rounded-xl border border-paper-edge bg-white/70 px-3.5 py-2.5 text-[15px] text-ink placeholder:text-ink-faint transition focus:border-leaf-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-leaf-200 disabled:bg-paper-deep disabled:text-ink-faint; }
+  .label { @apply mb-1.5 block text-sm font-semibold text-ink; }
+
+  /* The pinboard band behind the gallery */
+  .pinboard {
+    background-color: #E9DEC4;
+    background-image:
+      radial-gradient(rgba(110, 84, 40, .22) 1.2px, transparent 1.4px),
+      radial-gradient(rgba(255, 255, 255, .35) 1px, transparent 1.2px);
+    background-size: 26px 26px, 26px 26px;
+    background-position: 0 0, 13px 13px;
+  }
+
+  /* Washi tape strip */
+  .tape {
+    position: absolute; top: -13px; left: 50%; width: 92px; height: 28px;
+    transform: translateX(-50%) rotate(var(--tape-r, -3deg));
+    background: repeating-linear-gradient(135deg, rgba(255,255,255,.28) 0 6px, transparent 6px 12px), var(--tape-c, #CFDDE2);
+    opacity: .92; box-shadow: 0 1px 2px rgba(74,58,28,.18);
+    clip-path: polygon(0 8%, 4% 0, 8% 10%, 12% 0, 92% 0, 96% 10%, 100% 0, 100% 92%, 96% 100%, 92% 90%, 88% 100%, 8% 100%, 4% 90%, 0 100%);
+  }
+  .pin {
+    position: absolute; top: -9px; left: 50%; width: 20px; height: 20px; transform: translateX(-50%);
+    border-radius: 9999px; background: radial-gradient(circle at 35% 30%, #8FB589, #2F5D46 70%);
+    box-shadow: 0 5px 5px -2px rgba(40,30,10,.4), inset 0 -2px 3px rgba(0,0,0,.25);
+  }
+
+  .skeleton { position: relative; overflow: hidden; background: #E7DDC6; }
+  .skeleton::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); animation: shimmer 1.4s infinite; }
+}
+
+.scroll-thin { scrollbar-width: thin; scrollbar-color: #C9BB98 transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
